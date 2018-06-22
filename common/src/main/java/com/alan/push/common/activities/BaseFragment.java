@@ -72,4 +72,13 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void initArgs(Bundle bundle) {}
+
+
+    /**
+     * 返回按键fa
+     * @return
+     */
+    protected boolean onBackPressed(){
+        return  false;
+    }
 }
