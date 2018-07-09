@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alan.push.common.widget.convention.PlaceHolderView;
+
 /**
  * @author alan
  *         Date  2018/6/22.
@@ -17,6 +19,7 @@ import android.view.ViewGroup;
 
 public abstract class BaseFragment extends Fragment {
 
+    protected PlaceHolderView mPlaceHolderView;
 
     @Override
     public void onAttach(Context context) {
@@ -81,4 +84,14 @@ public abstract class BaseFragment extends Fragment {
     protected boolean onBackPressed(){
         return  false;
     }
+
+    /**
+     * 设置占位布局
+     *
+     * @param placeHolderView 继承了占位布局规范的View
+     */
+    public void setPlaceHolderView(PlaceHolderView placeHolderView) {
+        this.mPlaceHolderView = placeHolderView;
+    }
+
 }
