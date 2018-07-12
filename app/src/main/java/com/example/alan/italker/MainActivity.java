@@ -92,7 +92,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         menu.performIdentifierAction(R.id.action_home, 0);
 
         // 初始化头像加载
-        mPortrait.setup(Glide.with(this), Account.getUser());
+    //    mPortrait.setup(Glide.with(this), Account.getUser());
 
     }
 
