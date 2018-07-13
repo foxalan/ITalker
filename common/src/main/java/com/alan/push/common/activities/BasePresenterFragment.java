@@ -2,7 +2,7 @@ package com.alan.push.common.activities;
 
 import android.content.Context;
 
-import com.alan.push.common.factory.BaseContract;
+import com.alan.push.common.factory.presenter.BaseContract;
 
 /**
  * @author alan

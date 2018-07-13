@@ -1,4 +1,4 @@
-package com.alan.push.common.factory;
+package com.alan.push.common.factory.presenter;
 
 import android.support.annotation.StringRes;
 
@@ -14,6 +14,8 @@ import com.alan.push.common.widget.recycler.BaseRecyclerAdapter;
 public interface BaseContract {
 
     /**
+     * View层实现的接
+     *
      *基本的界面职责
      */
     interface View<T extends Presenter> {
@@ -35,6 +37,7 @@ public interface BaseContract {
 
     /**
      *基本的Presenter职责
+     *
      */
     interface Presenter {
         /**
@@ -45,7 +48,6 @@ public interface BaseContract {
         /**
          共用的销毁触发
          */
-
         void destroy();
     }
 

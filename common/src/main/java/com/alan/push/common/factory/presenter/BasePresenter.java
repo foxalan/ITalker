@@ -1,7 +1,5 @@
 package com.alan.push.common.factory.presenter;
 
-import com.alan.push.common.factory.BaseContract;
-
 /**
  * @author alan
  *         Date  2018/7/8.
