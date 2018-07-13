@@ -1,6 +1,7 @@
 package com.example.alan.italker.frags.main;
 
 import com.alan.push.common.activities.BaseFragment;
+import com.example.alan.italker.R;
 
 /**
  * @author alan
@@ -12,6 +13,6 @@ import com.alan.push.common.activities.BaseFragment;
 public class GroupFragment extends BaseFragment {
     @Override
     public Object getLayoutView() {
-        return null;
+        return R.layout.fragment_group;
     }
 }

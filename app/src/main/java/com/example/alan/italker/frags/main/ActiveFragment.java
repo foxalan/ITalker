@@ -3,6 +3,7 @@ package com.example.alan.italker.frags.main;
 import android.view.View;
 
 import com.alan.push.common.activities.BaseFragment;
+import com.example.alan.italker.R;
 
 /**
  * @author alan
@@ -20,6 +21,6 @@ public class ActiveFragment extends BaseFragment {
 
     @Override
     public Object getLayoutView() {
-        return null;
+        return R.layout.fragment_active;
     }
 }

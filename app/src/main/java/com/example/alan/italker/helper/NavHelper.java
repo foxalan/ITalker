@@ -11,7 +11,7 @@ import com.alan.push.common.activities.BaseFragment;
 /**
  * @author alan
  *         Date  2018/7/8.
- *         Function :
+ *         Function : SpareArray类似HashMap
  *         Issue :
  */
 
