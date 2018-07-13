@@ -1,4 +1,4 @@
-package com.example.alan.factory;
+package com.example.alan.factory.utils;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;

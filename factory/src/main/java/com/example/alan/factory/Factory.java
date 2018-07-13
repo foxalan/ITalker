@@ -3,8 +3,10 @@ package com.example.alan.factory;
 import android.support.annotation.StringRes;
 
 import com.alan.push.common.activities.Application;
+import com.alan.push.common.factory.data.DataSource;
 import com.example.alan.factory.model.api.RspModel;
 import com.example.alan.factory.persistence.Account;
+import com.example.alan.factory.utils.DBFlowExclusionStrategy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.raizlabs.android.dbflow.config.FlowConfig;
@@ -54,7 +56,8 @@ public class Factory {
     public static void setup() {
         // 初始化数据库
         FlowManager.init(new FlowConfig.Builder(app())
-                .openDatabasesOnInit(true) // 数据库初始化的时候就开始打开
+                // 数据库初始化的时候就开始打开
+                .openDatabasesOnInit(true)
                 .build());
 
         // 持久化的数据进行初始化
@@ -99,8 +102,9 @@ public class Factory {
      * @param callback DataSource.FailedCallback 用于返回一个错误的资源Id
      */
     public static void decodeRspCode(RspModel model, DataSource.FailedCallback callback) {
-        if (model == null)
+        if (model == null){
             return;
+        }
 
         // 进行Code区分
         switch (model.getCode()) {
@@ -158,8 +162,9 @@ public class Factory {
 
     private static void decodeRspCode(@StringRes final int resId,
                                       final DataSource.FailedCallback callback) {
-        if (callback != null)
+        if (callback != null){
             callback.onDataNotAvailable(resId);
+        }
     }
 
 
