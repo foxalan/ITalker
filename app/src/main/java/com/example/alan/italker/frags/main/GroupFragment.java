@@ -1,4 +1,4 @@
-package com.example.alan.italker.frgs.main;
+package com.example.alan.italker.frags.main;
 
 import com.alan.push.common.activities.BaseFragment;
 

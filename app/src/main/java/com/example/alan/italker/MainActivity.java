@@ -1,11 +1,11 @@
 package com.example.alan.italker;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,9 +18,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
-import com.example.alan.italker.frgs.main.ActiveFragment;
-import com.example.alan.italker.frgs.main.ContactFragment;
-import com.example.alan.italker.frgs.main.GroupFragment;
+import com.example.alan.italker.frags.main.ActiveFragment;
+import com.example.alan.italker.frags.main.ContactFragment;
+import com.example.alan.italker.frags.main.GroupFragment;
 import com.example.alan.italker.helper.NavHelper;
 
 import net.qiujuer.genius.ui.widget.FloatActionButton;
@@ -42,6 +42,11 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     FloatActionButton mAction;
 
     private NavHelper<Integer> mNavHelper;
+
+
+    public static void show(Context context){
+        context.startActivity(new Intent(context, MainActivity.class));
+    }
 
 
     @Override

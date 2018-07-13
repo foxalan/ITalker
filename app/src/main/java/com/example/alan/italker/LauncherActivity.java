@@ -15,6 +15,7 @@ import android.view.View;
 
 
 import com.alan.push.common.activities.BaseActivity;
+import com.example.alan.italker.frags.assist.PermissionsFragment;
 
 import net.qiujuer.genius.res.Resource;
 import net.qiujuer.genius.ui.compat.UiCompat;
@@ -72,6 +73,11 @@ public class LauncherActivity extends BaseActivity {
      * 等待个推框架对我们的PushId设置好值
      */
     private void waitPushReceiverId() {
+
+        skip();
+
+
+
 //        if (Account.isLogin()) {
 //            // 已经登录情况下，判断是否绑定
 //            // 如果没有绑定则等待广播接收器进行绑定
@@ -90,14 +96,34 @@ public class LauncherActivity extends BaseActivity {
 //        }
 
         // 循环等待
-        getWindow().getDecorView()
-                .postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        waitPushReceiverId();
-                    }
-                }, 500);
     }
+
+
+    /**
+     * 在跳转之前需要把剩下的50%进行完成
+     */
+    private void skip() {
+        startAnim(1f, new Runnable() {
+            @Override
+            public void run() {
+                reallySkip();
+            }
+        });
+    }
+
+    /**
+     * 真实的跳转
+     */
+    private void reallySkip() {
+        // 权限检测，跳转
+        if (PermissionsFragment.haveAll(this, getSupportFragmentManager())) {
+            // 检查跳转到主页还是登录
+            MainActivity.show(this);
+            finish();
+        }
+    }
+
+
 
     /**
      * 给背景设置一个动画
