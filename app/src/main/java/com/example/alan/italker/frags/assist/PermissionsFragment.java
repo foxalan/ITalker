@@ -25,7 +25,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  * @author alan
  *         Date  2018/7/13.
  *         Function : 权限页面
- *         Issue :
+ *         Issue : todo
  */
 
 public class PermissionsFragment extends BottomSheetDialogFragment implements EasyPermissions.PermissionCallbacks {
@@ -38,7 +38,6 @@ public class PermissionsFragment extends BottomSheetDialogFragment implements Ea
 
     public PermissionsFragment() {
 
-        // Required empty public constructor
     }
 
 
