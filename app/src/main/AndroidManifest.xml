@@ -40,6 +40,10 @@
             android:name=".MainActivity">
 
         </activity>
+
+        <activity
+            android:name=".activities.AccountActivity"
+            android:theme="@style/AppTheme.Account"/>
     </application>
 
 </manifest>
