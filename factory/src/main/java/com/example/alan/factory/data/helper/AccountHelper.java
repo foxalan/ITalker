@@ -101,14 +101,20 @@ public class AccountHelper {
             if (rspModel.success()) {
                 // 拿到实体
 
-                L.e("account callback");
                 AccountRspModel accountRspModel = rspModel.getResult();
+                L.e("account callback"+accountRspModel.toString());
                 // 获取我的信息
                 User user = accountRspModel.getUser();
                 // 第一种，之间保存
                 user.save();
                 Account.login(accountRspModel);
+                //todo
+                if (callback != null){
+                    L.e("call back data loaded");
 
+                    callback.onDataLoaded(user);
+                    return;
+                }
                 // 判断绑定状态，是否绑定设备
                 if (accountRspModel.isBind()) {
 
@@ -117,11 +123,6 @@ public class AccountHelper {
                     // 设置绑定状态为True
                     Account.setBind(true);
                     // 然后返回
-                    if (callback != null){
-                        L.e("call back data loaded");
-
-                        callback.onDataLoaded(user);
-                    }
                 } else {
                     L.e("is bind false");
                     // 进行绑定的唤起

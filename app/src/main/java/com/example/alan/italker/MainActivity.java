@@ -3,6 +3,7 @@ package com.example.alan.italker;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
@@ -19,6 +20,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
+import com.example.alan.factory.persistence.Account;
+import com.example.alan.italker.activities.UserActivity;
 import com.example.alan.italker.frags.main.ActiveFragment;
 import com.example.alan.italker.frags.main.ContactFragment;
 import com.example.alan.italker.frags.main.GroupFragment;
@@ -46,6 +49,18 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     FloatActionButton mAction;
 
     private NavHelper<Integer> mNavHelper;
+
+
+    @Override
+    protected boolean initArgs(Bundle bundle) {
+        if (Account.isComplete()) {
+            // 判断用户信息是否完全，完全则走正常流程
+            return super.initArgs(bundle);
+        } else {
+            UserActivity.show(this);
+            return false;
+        }
+    }
 
     public static void show(Context context){
         context.startActivity(new Intent(context, MainActivity.class));
