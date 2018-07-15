@@ -7,7 +7,9 @@ import com.example.alan.factory.model.api.account.RegisterModel;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
  * @author alan
@@ -36,6 +38,14 @@ public interface RemoteService {
      */
     @POST("account/login")
     Call<RspModel<AccountRspModel>> accountLogin(@Body LoginModel model);
+
+    /**
+     * 绑定设备ID
+     * @param pushId
+     * @return
+     */
+    @POST("account/bind/{pushId}")
+    Call<RspModel<AccountRspModel>> accountBind(@Path(encoded = true, value = "pushId") String pushId);
 
 
 }

@@ -2,7 +2,6 @@ package com.example.alan.factory.net;
 
 
 
-import android.net.Network;
 import android.text.TextUtils;
 
 import com.alan.push.common.Common;
@@ -18,6 +17,7 @@ import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
 /**
  * @author alan
  *         Date  2018/7/13.
@@ -25,16 +25,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
  *         Issue :
  */
 
-public class NetWork {
+public class Network {
 
-    private static NetWork instance;
+    private static Network instance;
     private Retrofit retrofit;
 
     static {
-        instance = new NetWork();
+        instance = new Network();
     }
 
-    private NetWork() {
+    private Network() {
     }
 
     public static Retrofit getRetrofit() {
@@ -85,6 +85,6 @@ public class NetWork {
      * @return RemoteService
      */
     public static RemoteService remote() {
-        return NetWork.getRetrofit().create(RemoteService.class);
+        return Network.getRetrofit().create(RemoteService.class);
     }
 }

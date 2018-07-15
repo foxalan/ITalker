@@ -30,8 +30,9 @@ public interface BaseContract {
         void showLoading();
 
         /**
-         *支持设置一个Presenter
+         *支持设置一个Presente
          */
+
         void setPresenter(T presenter);
     }
 

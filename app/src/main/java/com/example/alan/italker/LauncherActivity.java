@@ -15,6 +15,7 @@ import android.view.View;
 
 
 import com.alan.push.common.activities.BaseActivity;
+import com.example.alan.italker.activities.AccountActivity;
 import com.example.alan.italker.frags.assist.PermissionsFragment;
 
 import net.qiujuer.genius.res.Resource;
@@ -118,7 +119,8 @@ public class LauncherActivity extends BaseActivity {
         // 权限检测，跳转
         if (PermissionsFragment.haveAll(this, getSupportFragmentManager())) {
             // 检查跳转到主页还是登录
-            MainActivity.show(this);
+        //    MainActivity.show(this);
+            AccountActivity.show(this);
             finish();
         }
     }
