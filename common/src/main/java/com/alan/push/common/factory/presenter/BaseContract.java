@@ -21,6 +21,7 @@ public interface BaseContract {
     interface View<T extends Presenter> {
         /**
          *公共的：显示一个字符串错误
+         * @param str
          */
         void showError(@StringRes int str);
 
@@ -30,7 +31,9 @@ public interface BaseContract {
         void showLoading();
 
         /**
-         *支持设置一个Presente
+         *支持设置一个Presenter
+         *
+         * @param presenter
          */
 
         void setPresenter(T presenter);

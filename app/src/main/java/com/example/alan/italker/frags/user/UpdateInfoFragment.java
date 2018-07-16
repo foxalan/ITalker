@@ -1,5 +1,6 @@
 package com.example.alan.italker.frags.user;
 
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +23,7 @@ import net.qiujuer.genius.ui.widget.Loading;
  */
 
 public class UpdateInfoFragment extends BasePresenterFragment<UpdateInfoContract.Presenter>
-        implements UpdateInfoContract.View{
+        implements UpdateInfoContract.View, View.OnClickListener {
 
     ImageView mSex;
     EditText mDesc;
@@ -42,6 +43,10 @@ public class UpdateInfoFragment extends BasePresenterFragment<UpdateInfoContract
         mPortrait = rootView.findViewById(R.id.im_portrait);
         mLoading = rootView.findViewById(R.id.loading);
         mSubmit = rootView.findViewById(R.id.btn_submit);
+
+        mSubmit.setOnClickListener(this);
+        rootView.findViewById(R.id.im_portrait).setOnClickListener(this);
+        rootView.findViewById(R.id.im_sex).setOnClickListener(this);
 
 
     }
@@ -91,5 +96,63 @@ public class UpdateInfoFragment extends BasePresenterFragment<UpdateInfoContract
         // 更新成功跳转到主界面
         MainActivity.show(getContext());
         getActivity().finish();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_submit:
+                break;
+            case R.id.im_sex:
+                setUserSex();
+                break;
+            case R.id.im_portrait:
+                setUserPortrait();
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 设置性别
+     */
+    private void setUserSex() {
+
+        // 性别图片点击的时候触发
+        isMan = !isMan;
+        // 反向性别
+        Drawable drawable = getResources().getDrawable(isMan ?
+                R.drawable.ic_sex_man : R.drawable.ic_sex_woman);
+        mSex.setImageDrawable(drawable);
+        // 设置背景的层级，切换颜色
+        mSex.getBackground().setLevel(isMan ? 0 : 1);
+    }
+
+    private void setUserPortrait() {
+//        new GalleryFragment()
+//                .setListener(new GalleryFragment.OnSelectedListener() {
+//                    @Override
+//                    public void onSelectedImage(String path) {
+//                        UCrop.Options options = new UCrop.Options();
+//                        // 设置图片处理的格式JPEG
+//                        options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
+//                        // 设置压缩后的图片精度
+//                        options.setCompressionQuality(96);
+//
+//                        // 得到头像的缓存地址
+//                        File dPath = Application.getPortraitTmpFile();
+//
+//                        // 发起剪切
+//                        UCrop.of(Uri.fromFile(new File(path)), Uri.fromFile(dPath))
+//                                .withAspectRatio(1, 1) // 1比1比例
+//                                .withMaxResultSize(520, 520) // 返回最大的尺寸
+//                                .withOptions(options) // 相关参数
+//                                .start(getActivity());
+//                    }
+//                })
+//                // show 的时候建议使用getChildFragmentManager，
+//                // tag GalleryFragment class 名
+//                .show(getChildFragmentManager(), GalleryFragment.class.getName());
     }
 }
