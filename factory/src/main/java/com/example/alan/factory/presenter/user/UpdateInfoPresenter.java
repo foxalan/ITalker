@@ -1,6 +1,7 @@
 package com.example.alan.factory.presenter.user;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.alan.push.common.factory.data.DataSource;
 import com.alan.push.common.factory.presenter.BasePresenter;
@@ -49,6 +50,7 @@ public class UpdateInfoPresenter extends BasePresenter<UpdateInfoContract.View> 
                         UserUpdateModel model = new UserUpdateModel("", url, desc,
                                 isMan ? User.SEX_MAN : User.SEX_WOMAN);
                         // 进行网络请求，上传
+                        Log.e("italker",model.toString());
                         UserHelper.update(model, UpdateInfoPresenter.this);
                     }
                 }

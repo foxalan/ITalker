@@ -24,6 +24,7 @@ public class Account {
     private static final String KEY_TOKEN = "KEY_TOKEN";
     private static final String KEY_USER_ID = "KEY_USER_ID";
     private static final String KEY_ACCOUNT = "KEY_ACCOUNT";
+    private static final String KEY_PASSWORD = "KEY_PASSWORD";
 
     // 设备的推送Id
     private static String pushId;
@@ -35,6 +36,7 @@ public class Account {
     private static String userId;
     // 登录的账户
     private static String account;
+    private static String password;
 
 
     /**
@@ -51,6 +53,7 @@ public class Account {
                 .putString(KEY_TOKEN, token)
                 .putString(KEY_USER_ID, userId)
                 .putString(KEY_ACCOUNT, account)
+                .putString(KEY_PASSWORD,password)
                 .apply();
     }
 
@@ -77,6 +80,22 @@ public class Account {
         Account.pushId = pushId;
         Account.save(Factory.app());
     }
+
+    public static void setAccount(String account) {
+        Account.account = account;
+        Account.save(Factory.app());
+    }
+
+    public static String getPassword() {
+        return password;
+    }
+
+    public static void setPassword(String password) {
+        Account.password = password;
+        Account.save(Factory.app());
+    }
+
+
 
     /**
      * 获取推送Id
@@ -123,6 +142,12 @@ public class Account {
     public static boolean isBind() {
         return isBind;
     }
+
+    public static String getAccount() {
+        return account;
+    }
+
+
 
     /**
      * 设置绑定状态

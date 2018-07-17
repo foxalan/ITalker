@@ -1,5 +1,6 @@
 package com.alan.push.common.widget.recycler;
 
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,7 +21,7 @@ import java.util.List;
  *         Issue :
  */
 
-public abstract   class BaseRecyclerAdapter<Data> extends RecyclerView.Adapter<BaseRecyclerAdapter.BaseViewHolder<Data>>
+public abstract  class BaseRecyclerAdapter<Data> extends RecyclerView.Adapter<BaseRecyclerAdapter.BaseViewHolder<Data>>
         implements View.OnClickListener, View.OnLongClickListener ,AdapterCallBack<Data>{
 
     private  List<Data> mDataList = null;
@@ -55,7 +56,7 @@ public abstract   class BaseRecyclerAdapter<Data> extends RecyclerView.Adapter<B
         root.setOnLongClickListener(this);
 
         //将ViewHolder放入到TAG中方便以后的操作
-        root.setTag(R.id.id_recycler_holder,root);
+        root.setTag(R.id.id_recycler_holder,viewHolder);
 
         // 绑定callback
         viewHolder.callBack = this;
@@ -72,6 +73,15 @@ public abstract   class BaseRecyclerAdapter<Data> extends RecyclerView.Adapter<B
     public abstract BaseViewHolder<Data> onCreateBaseViewHolder(View root,int viewType);
 
     /**
+     * 设置ItemType
+     * @param position
+     * @param data
+     * @return
+     */
+    @LayoutRes
+    protected abstract int getItemViewType(int position, Data data);
+
+    /**
      * 绑定ViewHolder
      * @param holder
      * @param position
@@ -81,6 +91,119 @@ public abstract   class BaseRecyclerAdapter<Data> extends RecyclerView.Adapter<B
         Data data = mDataList.get(position);
         holder.bind(data);
     }
+
+
+    @Override
+    public int getItemCount() {
+        return mDataList.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+
+        return getItemViewType(position,mDataList.get(position));
+    }
+
+
+
+    public static abstract class BaseViewHolder<Data> extends RecyclerView.ViewHolder{
+
+        private Data data;
+        public AdapterCallBack<Data> callBack;
+
+        public BaseViewHolder(View itemView) {
+            super(itemView);
+        }
+
+        public void bind(Data data){
+            this.data = data;
+            onBind(data);
+        }
+
+        /**
+         * 绑定数据
+         * @param data
+         */
+        public abstract void onBind(Data data);
+
+        public void updateData(Data data){
+            if (callBack!=null){
+                callBack.update(data,this);
+            }
+        }
+
+    }
+
+    /**
+     * 对回调接口做一次实现AdapterListener
+     *
+     * @param <Data>
+     */
+    public static abstract class AdapterListenerImpl<Data> implements AdapterListener<Data> {
+
+        @Override
+        public void onItemClick(BaseViewHolder holder, Data data) {
+
+        }
+
+        @Override
+        public void onItemLongClick(BaseViewHolder holder, Data data) {
+
+        }
+    }
+
+
+    /**
+     * 设置适配器的监听
+     *
+     * @param adapterListener AdapterListener
+     */
+    public void setListener(AdapterListener<Data> adapterListener) {
+        this.mListener = adapterListener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        BaseViewHolder viewHolder = (BaseViewHolder) v.getTag(R.id.id_recycler_holder);
+        if (this.mListener != null) {
+            // 得到ViewHolder当前对应的适配器中的坐标
+            int pos = viewHolder.getAdapterPosition();
+            // 回掉方法
+            this.mListener.onItemClick(viewHolder, mDataList.get(pos));
+        }
+
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        BaseViewHolder viewHolder = (BaseViewHolder) v.getTag(R.id.id_recycler_holder);
+        if (this.mListener != null) {
+            // 得到ViewHolder当前对应的适配器中的坐标
+            int pos = viewHolder.getAdapterPosition();
+            // 回掉方法
+            this.mListener.onItemLongClick(viewHolder, mDataList.get(pos));
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 我们的自定义监听器
+     *
+     * @param <Data> 范型
+     */
+    public interface AdapterListener<Data> {
+        /**
+         *当Cell点击的时候触发
+         */
+        void onItemClick(BaseViewHolder holder, Data data);
+
+        /**
+         *当Cell长按时触发
+         */
+        void onItemLongClick(BaseViewHolder holder, Data data);
+    }
+
 
     /**
      * 插入一条数据并通知插入
@@ -141,87 +264,16 @@ public abstract   class BaseRecyclerAdapter<Data> extends RecyclerView.Adapter<B
     }
 
     @Override
-    public int getItemCount() {
-        return mDataList.size();
-    }
-
-    static abstract class BaseViewHolder<Data> extends RecyclerView.ViewHolder{
-
-        private Data data;
-        public AdapterCallBack<Data> callBack;
-
-        public BaseViewHolder(View itemView) {
-            super(itemView);
+    public void update(Data data, BaseViewHolder<Data> holder) {
+        // 得到当前ViewHolder的坐标
+        int pos = holder.getAdapterPosition();
+        if (pos >= 0) {
+            // 进行数据的移除与更新
+            mDataList.remove(pos);
+            mDataList.add(pos, data);
+            // 通知这个坐标下的数据有更新
+            notifyItemChanged(pos);
         }
-
-        public void bind(Data data){
-            this.data = data;
-            onBind(data);
-        }
-
-        /**
-         * 绑定数据
-         * @param data
-         */
-        public abstract void onBind(Data data);
-
-        public void updateData(Data data){
-            if (callBack!=null){
-                callBack.update(data,this);
-            }
-        }
-
     }
 
-
-    /**
-     * 设置适配器的监听
-     *
-     * @param adapterListener AdapterListener
-     */
-    public void setListener(AdapterListener<Data> adapterListener) {
-        this.mListener = adapterListener;
-    }
-
-    @Override
-    public void onClick(View v) {
-        BaseViewHolder viewHolder = (BaseViewHolder) v.getTag(R.id.id_recycler_holder);
-        if (this.mListener != null) {
-            // 得到ViewHolder当前对应的适配器中的坐标
-            int pos = viewHolder.getAdapterPosition();
-            // 回掉方法
-            this.mListener.onItemClick(viewHolder, mDataList.get(pos));
-        }
-
-    }
-
-    @Override
-    public boolean onLongClick(View v) {
-        BaseViewHolder viewHolder = (BaseViewHolder) v.getTag(R.id.id_recycler_holder);
-        if (this.mListener != null) {
-            // 得到ViewHolder当前对应的适配器中的坐标
-            int pos = viewHolder.getAdapterPosition();
-            // 回掉方法
-            this.mListener.onItemLongClick(viewHolder, mDataList.get(pos));
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * 我们的自定义监听器
-     *
-     * @param <Data> 范型
-     */
-    public interface AdapterListener<Data> {
-        /**
-         *当Cell点击的时候触发
-         */
-        void onItemClick(BaseViewHolder holder, Data data);
-
-        /**
-         *当Cell长按时触发
-         */
-        void onItemLongClick(BaseViewHolder holder, Data data);
-    }
 }

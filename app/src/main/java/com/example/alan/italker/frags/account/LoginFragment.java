@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.alan.push.common.activities.BasePresenterFragment;
+import com.example.alan.factory.persistence.Account;
 import com.example.alan.factory.presenter.account.LoginContract;
 import com.example.alan.factory.presenter.account.LoginPresenter;
 import com.example.alan.italker.MainActivity;
@@ -29,6 +30,9 @@ public class LoginFragment extends BasePresenterFragment<LoginContract.Presenter
     Loading mLoading;
     Button mSubmit;
 
+    String account;
+    String password;
+
     private AccountTrigger mAccountTrigger;
 
     @Override
@@ -47,6 +51,12 @@ public class LoginFragment extends BasePresenterFragment<LoginContract.Presenter
         mSubmit = rootView.findViewById(R.id.btn_submit);
         mRegister = rootView.findViewById(R.id.txt_go_register);
 
+        account = Account.getAccount();
+        password = Account.getPassword();
+
+        mPhone.setText(account);
+        mPassword.setText(password);
+
         mSubmit.setOnClickListener(this);
         mRegister.setOnClickListener(this);
     }
@@ -61,8 +71,9 @@ public class LoginFragment extends BasePresenterFragment<LoginContract.Presenter
     public void loginSuccess() {
 
         MainActivity.show(getContext());
-        getActivity().finish();
-
+        if (getActivity()!=null){
+            getActivity().finish();
+        }
     }
 
 
