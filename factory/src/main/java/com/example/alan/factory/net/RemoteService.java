@@ -63,9 +63,33 @@ public interface RemoteService {
 
     /**
      *获取联系人列表
+     * @return
      */
     @GET("user/contact")
     Call<RspModel<List<UserCard>>> userContacts();
 
+
+    /**
+     *  找用户通过ID
+     * @param userId
+     * @return
+     */
+    @GET("user/{userId}")
+    Call<RspModel<UserCard>> userFind(@Path("userId") String userId);
+
+
+    /**
+     * 通过用户
+     * @param name
+     * @return
+     */
+    @GET("user/search/{name}")
+    Call<RspModel<List<UserCard>>> userSearch(@Path("name") String name);
+
+    /**
+     *用户关注接口
+     */
+    @PUT("user/follow/{userId}")
+    Call<RspModel<UserCard>> userFollow(@Path("userId") String userId);
 
 }
