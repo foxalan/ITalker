@@ -1,5 +1,6 @@
 <resources>
 
+
     <style name="Theme.private" parent="Theme.AppCompat">
         <!-- 复写3个主要的色彩. -->
         <item name="colorPrimary">@color/colorPrimary</item>

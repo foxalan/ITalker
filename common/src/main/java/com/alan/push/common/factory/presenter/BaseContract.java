@@ -4,6 +4,7 @@ import android.support.annotation.StringRes;
 
 import com.alan.push.common.widget.recycler.BaseRecyclerAdapter;
 
+
 /**
  * @author alan
  *         Date  2018/7/8.

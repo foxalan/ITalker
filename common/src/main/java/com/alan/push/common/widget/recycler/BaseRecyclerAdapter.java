@@ -104,11 +104,19 @@ public abstract  class BaseRecyclerAdapter<Data> extends RecyclerView.Adapter<Ba
         return getItemViewType(position,mDataList.get(position));
     }
 
+    /**
+     * 返回整个集合
+     *
+     * @return List<Data>
+     */
+    public List<Data> getItems() {
+        return mDataList;
+    }
 
 
     public static abstract class BaseViewHolder<Data> extends RecyclerView.ViewHolder{
 
-        private Data data;
+        protected Data mData;
         public AdapterCallBack<Data> callBack;
 
         public BaseViewHolder(View itemView) {
@@ -116,7 +124,7 @@ public abstract  class BaseRecyclerAdapter<Data> extends RecyclerView.Adapter<Ba
         }
 
         public void bind(Data data){
-            this.data = data;
+            this.mData = data;
             onBind(data);
         }
 

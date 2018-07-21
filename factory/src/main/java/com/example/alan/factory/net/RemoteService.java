@@ -7,6 +7,8 @@ import com.example.alan.factory.model.api.account.RegisterModel;
 import com.example.alan.factory.model.api.user.UserUpdateModel;
 import com.example.alan.factory.model.card.UserCard;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -58,6 +60,12 @@ public interface RemoteService {
      */
     @PUT("user")
     Call<RspModel<UserCard>> userUpdate(@Body UserUpdateModel model);
+
+    /**
+     *获取联系人列表
+     */
+    @GET("user/contact")
+    Call<RspModel<List<UserCard>>> userContacts();
 
 
 }
