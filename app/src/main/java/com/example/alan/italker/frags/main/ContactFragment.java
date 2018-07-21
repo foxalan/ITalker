@@ -6,12 +6,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.alan.push.common.activities.BaseFragment;
+import com.alan.push.common.activities.BasePresenterFragment;
 import com.alan.push.common.widget.EmptyView;
 import com.alan.push.common.widget.PortraitView;
 import com.alan.push.common.widget.recycler.BaseRecyclerAdapter;
 import com.bumptech.glide.Glide;
 import com.example.alan.factory.model.db.User;
+import com.example.alan.factory.presenter.contact.ContactContract;
+import com.example.alan.factory.presenter.contact.ContactPresenter;
 import com.example.alan.italker.R;
+
+import static com.raizlabs.android.dbflow.config.FlowManager.getContext;
 
 /**
  * @author alan
@@ -20,7 +25,8 @@ import com.example.alan.italker.R;
  *         Issue :
  */
 
-public class ContactFragment extends BaseFragment {
+public class ContactFragment extends BasePresenterFragment<ContactContract.Presenter>
+        implements ContactContract.View {
 
 
     EmptyView mEmptyView;
@@ -73,6 +79,24 @@ public class ContactFragment extends BaseFragment {
     @Override
     public Object getLayoutView() {
         return R.layout.fragment_contact;
+    }
+
+
+
+    @Override
+    protected ContactContract.Presenter initPresenter() {
+        return new ContactPresenter(this);
+    }
+
+    @Override
+    public BaseRecyclerAdapter<User> getRecyclerAdapter() {
+        return mAdapter;
+    }
+
+    @Override
+    public void onAdapterDataChanged() {
+        // 进行界面操作
+        mPlaceHolderView.triggerOkOrEmpty(mAdapter.getItemCount() > 0);
     }
 
     class ViewHolder extends BaseRecyclerAdapter.BaseViewHolder<User> {

@@ -21,6 +21,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.example.alan.factory.persistence.Account;
+import com.example.alan.italker.activities.SearchActivity;
 import com.example.alan.italker.activities.UserActivity;
 import com.example.alan.italker.frags.main.ActiveFragment;
 import com.example.alan.italker.frags.main.ContactFragment;
@@ -91,6 +92,19 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
 
         // 添加对底部按钮点击的监听
         mNavigation.setOnNavigationItemSelectedListener(this);
+        mAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 浮动按钮点击时，判断当前界面是群还是联系人界面
+                // 如果是群，则打开群创建的界面
+                if (Objects.equals(mNavHelper.getCurrentTab().extra, R.string.title_group)) {
+                    // TODO 打开群创建界面
+                } else {
+                    // 如果是其他，都打开添加用户的界面
+                    SearchActivity.show(MainActivity.this, SearchActivity.TYPE_USER);
+                }
+            }
+        });
 
         Glide.with(this)
                 .load(R.drawable.bg_src_morning)
