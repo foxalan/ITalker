@@ -136,6 +136,12 @@ public class SearchActivity extends BaseToolbarActivity {
      * 搜索的Fragment必须继承的接口
      */
     public interface SearchFragment {
+
+        /**
+         * 查询
+         * @param content
+         */
+
         void search(String content);
     }
 }

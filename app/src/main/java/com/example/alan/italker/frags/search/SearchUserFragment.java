@@ -18,6 +18,7 @@ import com.example.alan.factory.presenter.contact.FollowPresenter;
 import com.example.alan.factory.presenter.search.SearchContract;
 import com.example.alan.factory.presenter.search.SearchUserPresenter;
 import com.example.alan.italker.R;
+import com.example.alan.italker.activities.PersonalActivity;
 import com.example.alan.italker.activities.SearchActivity;
 
 import net.qiujuer.genius.ui.Ui;
@@ -139,7 +140,7 @@ public class SearchUserFragment extends BasePresenterFragment<SearchContract.Pre
                 @Override
                 public void onClick(View v) {
                     // 显示信息
-                //    PersonalActivity.show(getContext(), mData.getId());
+                    PersonalActivity.show(getContext(), mData.getId());
                 }
             });
 

@@ -1,5 +1,8 @@
 package com.example.alan.factory.data.helper;
 
+import android.util.Log;
+
+import com.alan.push.common.L;
 import com.alan.push.common.factory.data.DataSource;
 import com.example.alan.factory.Factory;
 import com.example.alan.factory.R;
@@ -138,12 +141,14 @@ public class UserHelper {
     public static Call search(String name, final DataSource.Callback<List<UserCard>> callback) {
         RemoteService service = Network.remote();
         Call<RspModel<List<UserCard>>> call = service.userSearch(name);
-
+        L.e("search name:"+name+"==============================");
         call.enqueue(new Callback<RspModel<List<UserCard>>>() {
             @Override
             public void onResponse(Call<RspModel<List<UserCard>>> call, Response<RspModel<List<UserCard>>> response) {
                 RspModel<List<UserCard>> rspModel = response.body();
+
                 if (rspModel.success()) {
+                    L.e("success"+"=============================="+rspModel.getResult().size());
                     // 返回数据
                     callback.onDataLoaded(rspModel.getResult());
                 } else {
@@ -153,6 +158,7 @@ public class UserHelper {
 
             @Override
             public void onFailure(Call<RspModel<List<UserCard>>> call, Throwable t) {
+                L.e("onFailure"+"==============================");
                 callback.onDataNotAvailable(R.string.data_network_error);
             }
         });

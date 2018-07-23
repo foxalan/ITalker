@@ -15,6 +15,7 @@ import com.example.alan.factory.model.db.User;
 import com.example.alan.factory.presenter.contact.ContactContract;
 import com.example.alan.factory.presenter.contact.ContactPresenter;
 import com.example.alan.italker.R;
+import com.example.alan.italker.activities.PersonalActivity;
 
 import static com.raizlabs.android.dbflow.config.FlowManager.getContext;
 
@@ -122,7 +123,7 @@ public class ContactFragment extends BasePresenterFragment<ContactContract.Prese
             mPortraitView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //PersonalActivity.show(getContext(), mData.getId());
+                    PersonalActivity.show(getContext(), mData.getId());
                 }
             });
 
