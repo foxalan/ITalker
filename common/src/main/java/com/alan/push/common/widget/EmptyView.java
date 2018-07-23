@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -118,6 +119,9 @@ public class EmptyView extends LinearLayout implements PlaceHolderView {
      */
     @Override
     public void triggerNetError() {
+
+        Log.e("italker","triggerEmpty");
+
         mLoading.setVisibility(GONE);
         mLoading.stop();
         mEmptyImg.setImageResource(mDrawableIds[1]);
@@ -166,7 +170,10 @@ public class EmptyView extends LinearLayout implements PlaceHolderView {
     public void triggerOkOrEmpty(boolean isOk) {
         if (isOk){
             triggerOk();
+
+            Log.e("italker","triggerOk");
         } else{
+            Log.e("italker","triggerEmpty");
             triggerEmpty();
         }
     }

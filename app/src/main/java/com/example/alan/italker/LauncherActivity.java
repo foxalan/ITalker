@@ -1,6 +1,6 @@
 package com.example.alan.italker;
 
-import android.accounts.Account;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
@@ -9,7 +9,6 @@ import android.animation.ValueAnimator;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.text.TextUtils;
 import android.util.Property;
 import android.view.View;
 

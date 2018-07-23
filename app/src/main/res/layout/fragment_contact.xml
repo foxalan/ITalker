@@ -13,12 +13,10 @@
         android:outlineProvider="bounds"
         android:paddingBottom="@dimen/len_12"
         android:paddingTop="@dimen/len_12"
-        android:visibility="gone"
         tools:targetApi="lollipop" />
 
     <com.alan.push.common.widget.EmptyView
-        android:layout_gravity="center"
-        android:gravity="center"
+        android:visibility="gone"
         android:id="@+id/empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

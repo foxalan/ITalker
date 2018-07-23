@@ -2,6 +2,7 @@ package com.example.alan.italker.frags.main;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,9 +16,10 @@ import com.example.alan.factory.model.db.User;
 import com.example.alan.factory.presenter.contact.ContactContract;
 import com.example.alan.factory.presenter.contact.ContactPresenter;
 import com.example.alan.italker.R;
+import com.example.alan.italker.activities.MessageActivity;
 import com.example.alan.italker.activities.PersonalActivity;
 
-import static com.raizlabs.android.dbflow.config.FlowManager.getContext;
+
 
 /**
  * @author alan
@@ -30,13 +32,15 @@ public class ContactFragment extends BasePresenterFragment<ContactContract.Prese
         implements ContactContract.View {
 
 
+
     EmptyView mEmptyView;
     RecyclerView mRecycler;
 
-    private BaseRecyclerAdapter<User> mAdapter;
+    private BaseRecyclerAdapter<User> mAdapter = null;
 
     public ContactFragment() {
-        // Required empty public constructor
+
+        Log.e("italker","contactFragment");
     }
 
     @Override
@@ -68,7 +72,7 @@ public class ContactFragment extends BasePresenterFragment<ContactContract.Prese
             @Override
             public void onItemClick(BaseRecyclerAdapter.BaseViewHolder holder, User user) {
                 // 跳转到聊天界面
-                //   MessageActivity.show(getContext(), user);
+                  MessageActivity.show(getContext(), user);
             }
         });
 
@@ -77,12 +81,20 @@ public class ContactFragment extends BasePresenterFragment<ContactContract.Prese
 
     }
 
+
+    @Override
+    protected void onFirstInit() {
+        super.onFirstInit();
+
+        Log.e("italker","on first init");
+
+        mPresenter.start();
+    }
+
     @Override
     public Object getLayoutView() {
         return R.layout.fragment_contact;
     }
-
-
 
     @Override
     protected ContactContract.Presenter initPresenter() {
@@ -96,9 +108,14 @@ public class ContactFragment extends BasePresenterFragment<ContactContract.Prese
 
     @Override
     public void onAdapterDataChanged() {
+
+        Log.e("italker",mAdapter.getItemCount()+"+++");
+
         // 进行界面操作
         mPlaceHolderView.triggerOkOrEmpty(mAdapter.getItemCount() > 0);
     }
+
+
 
     class ViewHolder extends BaseRecyclerAdapter.BaseViewHolder<User> {
 

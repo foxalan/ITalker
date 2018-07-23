@@ -4,9 +4,11 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.util.SparseArray;
 
-import com.alan.push.common.activities.BaseFragment;
+import com.example.alan.italker.frags.main.ContactFragment;
+
 
 /**
  * @author alan
@@ -34,9 +36,7 @@ public class NavHelper<T> {
      */
     private Tab<T> currentTab;
 
-    public NavHelper(Context context, int containerId,
-                     FragmentManager fragmentManager,
-                     OnTabChangedListener<T> listener) {
+    public NavHelper(Context context, int containerId, FragmentManager fragmentManager,OnTabChangedListener<T> listener) {
         this.context = context;
         this.containerId = containerId;
         this.fragmentManager = fragmentManager;
@@ -115,21 +115,37 @@ public class NavHelper<T> {
         if (oldTab != null) {
             if (oldTab.fragment != null) {
                 // 从界面移除，但是还在Fragment的缓存空间中
-                ft.detach(oldTab.fragment);
+                ft.hide(oldTab.fragment);
             }
         }
 
         if (newTab != null) {
             if (newTab.fragment == null) {
+
+                Log.e("italker",newTab.clx.getName()+"==="+ContactFragment.class.getName());
+
+
+
                 // 首次新建
                 Fragment fragment = Fragment.instantiate(context, newTab.clx.getName(), null);
                 // 缓存起来
                 newTab.fragment = fragment;
+
+                if (newTab.clx.getName().equals(ContactFragment.class.getName())){
+                    Log.e("italker","first init"+newTab.fragment);
+                }
                 // 提交到FragmentManger
                 ft.add(containerId, fragment, newTab.clx.getName());
+
             } else {
+
+                if (newTab.clx.getName().equals(ContactFragment.class.getName())){
+                    Log.e("italker","second attach"+newTab.fragment);
+
+                }
                 // 从FragmentManger的缓存空间中重新加载到界面中
-                ft.attach(newTab.fragment);
+                ft.show(newTab.fragment);
+
             }
         }
         // 提交事务

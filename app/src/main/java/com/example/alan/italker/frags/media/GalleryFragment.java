@@ -28,6 +28,7 @@ public class GalleryFragment  extends BottomSheetDialogFragment implements Galle
     private OnSelectedListener mListener;
 
     public GalleryFragment() {
+
     }
 
     @NonNull

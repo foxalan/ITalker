@@ -3,6 +3,7 @@ package com.example.alan.factory.presenter.contact;
 
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
+import android.util.Log;
 
 import com.alan.push.common.factory.data.DataSource;
 import com.alan.push.common.factory.presenter.BasePresenter;
@@ -52,7 +53,7 @@ public class ContactPresenter extends BasePresenter<ContactContract.View> implem
                     @Override
                     public void onListQueryResult(QueryTransaction transaction,
                                                   @NonNull List<User> tResult) {
-
+                        Log.e("italker","sqlite "+tResult.size());
                         getView().getRecyclerAdapter().replace(tResult);
                         getView().onAdapterDataChanged();
 
@@ -61,38 +62,38 @@ public class ContactPresenter extends BasePresenter<ContactContract.View> implem
                 .execute();
 
 
-        // 加载网络数据
-        UserHelper.refreshContacts(new DataSource.Callback<List<UserCard>>() {
-            @Override
-            public void onDataNotAvailable(int strRes) {
-                // 网络失败，因为本地有数据，不管错误
-            }
-
-            @Override
-            public void onDataLoaded(final List<UserCard> userCards) {
-                // 转换为User
-                final List<User> users = new ArrayList<>();
-                for (UserCard userCard : userCards) {
-                    users.add(userCard.build());
-                }
-
-                // 丢到事物中保存数据库
-                DatabaseDefinition definition = FlowManager.getDatabase(AppDatabase.class);
-                definition.beginTransactionAsync(new ITransaction() {
-                    @Override
-                    public void execute(DatabaseWrapper databaseWrapper) {
-                        FlowManager.getModelAdapter(User.class)
-                                .saveAll(users);
-                    }
-                }).build().execute();
-
-                // 网络的数据往往是新的，我们需要直接刷新到界面
-                List<User> old = getView().getRecyclerAdapter().getItems();
-                // 会导致数据顺序全部为新的数据集合
-                diff(old, users);
-
-            }
-        });
+//        // 加载网络数据
+//        UserHelper.refreshContacts(new DataSource.Callback<List<UserCard>>() {
+//            @Override
+//            public void onDataNotAvailable(int strRes) {
+//                // 网络失败，因为本地有数据，不管错误
+//            }
+//
+//            @Override
+//            public void onDataLoaded(final List<UserCard> userCards) {
+//                // 转换为User
+//                final List<User> users = new ArrayList<>();
+//                for (UserCard userCard : userCards) {
+//                    users.add(userCard.build());
+//                }
+//
+//                // 丢到事物中保存数据库
+//                DatabaseDefinition definition = FlowManager.getDatabase(AppDatabase.class);
+//                definition.beginTransactionAsync(new ITransaction() {
+//                    @Override
+//                    public void execute(DatabaseWrapper databaseWrapper) {
+//                        FlowManager.getModelAdapter(User.class)
+//                                .saveAll(users);
+//                    }
+//                }).build().execute();
+//
+//                // 网络的数据往往是新的，我们需要直接刷新到界面
+//                List<User> old = getView().getRecyclerAdapter().getItems();
+//                // 会导致数据顺序全部为新的数据集合
+//                diff(old, users);
+//
+//            }
+//        });
 
         // TODO 问题：
         // 1.关注后虽然存储数据库，但是没有刷新联系人

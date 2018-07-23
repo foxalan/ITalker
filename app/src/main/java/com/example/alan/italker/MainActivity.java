@@ -83,11 +83,10 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         mAction = findViewById(R.id.btn_action);
 
         // 初始化底部辅助工具类
-        mNavHelper = new NavHelper<>(this, R.id.lay_container,
-                getSupportFragmentManager(), this);
+        mNavHelper = new NavHelper<>(this, R.id.lay_container, getSupportFragmentManager(), this);
         mNavHelper.add(R.id.action_home, new NavHelper.Tab<>(ActiveFragment.class, R.string.title_home))
-                .add(R.id.action_group, new NavHelper.Tab<>(GroupFragment.class, R.string.title_group))
-                .add(R.id.action_contact, new NavHelper.Tab<>(ContactFragment.class, R.string.title_contact));
+                          .add(R.id.action_group, new NavHelper.Tab<>(GroupFragment.class, R.string.title_group))
+                          .add(R.id.action_contact, new NavHelper.Tab<>(ContactFragment.class, R.string.title_contact));
 
 
         // 添加对底部按钮点击的监听

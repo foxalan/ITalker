@@ -11,6 +11,10 @@ import com.example.alan.italker.R;
  */
 
 public class GroupFragment extends BaseFragment {
+
+    public GroupFragment() {
+        // Required empty public constructor
+    }
     @Override
     public Object getLayoutView() {
         return R.layout.fragment_group;

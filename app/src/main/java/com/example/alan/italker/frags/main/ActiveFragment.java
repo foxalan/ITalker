@@ -14,6 +14,10 @@ import com.example.alan.italker.R;
 
 public class ActiveFragment extends BaseFragment {
 
+    public ActiveFragment() {
+        // Required empty public constructor
+    }
+
     @Override
     protected void initWidget(View rootView) {
         super.initWidget(rootView);
